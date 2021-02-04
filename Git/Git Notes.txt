@@ -1,0 +1,80 @@
+git 配置文件
+git config --global user.name "wangyu"
+git config --global user.email "wangyu199311@126.com"
+别名设置
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+
+git config --global alias.co checkout
+git config --global alias.co checkout
+git config --global alias.co checkout
+
+---------------------------------
+
+0. 基本概念
+工作区：本地
+暂存区：add操作之后的位置
+本地仓库：commit操作之后的位置
+
+
+
+----------------------------------
+1. 获取Git仓库
+	（1）将本地代码转换成GitC仓库
+		git init
+	（2）从其他服务器中克隆一个已经存在的Git仓库
+		git clone http://github.com/libgit2/libgit2 mylibgitname // 从网址上clone一个到本地，并命名为 mylibgitname
+
+2. 查看类的操作
+git status // 查看状态  -s 以紧凑的方式输出状态
+
+git diff  // 未暂存的文件有哪些改动
+git diff --staged(--cached)  // 暂存文件与最后一次提交的文件之间的差异
+
+git log // 查看提交历史
+git log -p -2 // -p(--patch) 显示每次提交所引入的差异  -2 表示只显示最近2次提交
+git log -stat // 显示每次提交的简略统计信息
+git log --pretty=oneline(short/full/fuller) // 一行显示...
+git log --pretty=format:"%h - %an, %ar : %s"
+
+
+3. 提交和回退操作
+git add // 跟踪文件 git add . 跟踪所有未跟踪的文件
+git commit -m"commit message"// 
+git commit -a  // 等于  add + commit 跳过暂存区
+
+
+
+4.忽略文件
+.gitignore文件的规范：
+（1）#开头的是注释
+（2）可以使用模式匹配
+（3）以/开头防止递归  以/结尾来指定目录
+（4）忽略指定模式以外的文件，在模式前加!
+
+5. 移动/移除文件
+git rm // 从git仓库和本地都删除一个文件
+git rm --cached // 只从git仓库中移除，本文仍然保留该文件
+git rm -f // 强制删除，当本地修改或者已经放到暂存区时，需要加-f
+
+git mv file_from file_to // 将文件file_from 重命名为file_to  相当于mv file_from file_to + git rm file_from + git add file_to
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
