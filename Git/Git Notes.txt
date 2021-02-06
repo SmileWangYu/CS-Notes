@@ -1,3 +1,5 @@
+***使用前配置操作***
+
 git 配置文件
 git config --global user.name "wangyu"
 git config --global user.email "wangyu199311@126.com"
@@ -10,6 +12,20 @@ git config --global alias.st status
 git config --global alias.co checkout
 git config --global alias.co checkout
 git config --global alias.co checkout
+
+解决中文乱码的问题
+（1）ls命令 中文文件名乱码  ->  /etc/git-completion.bash 追加一行  alias ls=`ls --show-control-chars --color=auto`
+（2）git commit 无法输入中文注释  /etc/inputrc文件 set output-meta on  set convert-meta off
+（3）git log 中文注释乱码 /etc/profile  追加一行 expot LESSCHARSET=iso8859
+（4）gitk 显示中文乱码问题 git config --global i18n.commitencoding ISO-8859
+						   git config --global i18n.logoutputenoding ISO-8859
+
+
+
+
+
+
+
 
 ---------------------------------
 
@@ -39,11 +55,16 @@ git log -stat // 显示每次提交的简略统计信息
 git log --pretty=oneline(short/full/fuller) // 一行显示...
 git log --pretty=format:"%h - %an, %ar : %s"
 
+gitk // 查看当前分支历史记录
+gitk <br> // 查看某分支历史记录
+gitk --all 查看所有分支
+git branch -v // 每个分支最后的提交 
 
 3. 提交和回退操作
-git add // 跟踪文件 git add . 跟踪所有未跟踪的文件
+git add // 跟踪文件 git add . 跟踪所有未跟踪的文件（包括子目录但是不包括空目录）
 git commit -m"commit message"// 
 git commit -a  // 等于  add + commit 跳过暂存区
+git commit -C head -a(file) -amend // 将全部或者某个文件增补提交不会产生新的提交记录
 
 
 
@@ -53,6 +74,8 @@ git commit -a  // 等于  add + commit 跳过暂存区
 （2）可以使用模式匹配
 （3）以/开头防止递归  以/结尾来指定目录
 （4）忽略指定模式以外的文件，在模式前加!
+设置只有自己需要忽略的文件：
+修改 .git/info/exclude文件 
 
 5. 移动/移除文件
 git rm // 从git仓库和本地都删除一个文件
@@ -61,14 +84,52 @@ git rm -f // 强制删除，当本地修改或者已经放到暂存区时，需�
 
 git mv file_from file_to // 将文件file_from 重命名为file_to  相当于mv file_from file_to + git rm file_from + git add file_to
 
+6. 撤销修改
+（1）撤销尚未提交的修改（状态是motify的文件）
+git checkout head a.txt  // 撤销一个文件
+git checkout *.txt // 撤销所有txt文件
+git checkout head . // 撤销所有文件
+（2）撤销提交（暂存区和git仓库）
+git reset head [file]  // 取消暂存
+git reset --hard head // 复位到head之前的版本
 
 
+7. 分支操作
+git branch // 列出本地分支
+git branch -a // 列出所有分支
+git branch <branchname>  // 创建分支
+git checkout <branchname>  // 切换分支
+git checkout -b <branchname>  // 创建并切换  相当于 git branch <br> & git checkout <br>
+
+git merge <br> // 普通分支合并
+git merge --squash <br> // 压合合并
+git cherry-pick --no-commit [hash] // 挑选某次提交但不合并
+
+8. 标签 
+git tag 1.0 // 为当前分支最近一次提交创建标签 （标签无法重命名）
+git tag // 显示标签列表
+git checkout 1.0
+由标签创建分支
+	git branch b1.1 1.1 
+	git checkout -b b1.1 1.1
+
+git tag -d 1.0 // 删除标签
 
 
+9. 远程仓库
+gir branch -r // 列出远程分支
+git remote prune origin // 删除远程仓库中已经不存在的分支
 
+git fetch <远程版本库> (origin) // 获取但不合并 origin 是远程库的没人名
+git pull // 等价于git pull origin  
+git pull d:\git\nb  master // 由于不是从默认远程库获取，所以需要指定获取那个分支
 
+git push origin master // 推入远程库 -f 强制push 会覆盖远程的所有代码
 
-
+PS: 
+配置origin的方法：
+git remote add origin http://github.com/SmileWangYu/CS-Notes.git
+此时 origin 才能生效
 
 
 
