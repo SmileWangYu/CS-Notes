@@ -1,0 +1,57 @@
+Linux 学习笔记
+
+一、常用命令
+1.终端快捷键
+(ctrl + a)/HOME  命令行开始
+(ctrl + e)/END   命令行结束
+ctrl + l / clear 清除屏幕
+
+ctrl + u 剪切光标之前的  ctrl + k  剪切光标之后的
+ctrl + y 粘贴
+
+ctrl + r  在历史命令中查找
+ctrl + t  颠倒光标之前和当前字符的位置，并且光标移动到下一个位置
+alt + t  交换当前和之前的单词的位置
+alt + d  剪切光标之后的单词
+
+ctrl + z 转入后台执行  但是当前用户退出后就会终止
+ctrl + (xu) 撤销
+
+!!  重复执行最后一条命令
+history  显示所有执行过的命令
+!$  显示系统最近的命令的参数  例子  cat file.txt 想用vi编辑file.txt  -> vi !$
+
+ctrl + alt + D   切换显示桌面
+
+vim 下载安装与配置
+sudo apt-get install vim-gtk   下载安装
+
+sudo vim /etc/vim/vimrc  编辑配置文件
+syntax on 语法高亮
+set nu         在左侧行号
+set tabstop    tab长度设置为4
+set nobackup   覆盖文件时不备份
+set cursorline 突出显示当前行
+set ruler	   在右下角显示光标位置的状态行
+set autoindent 自动缩进
+
+grep 和 管道符
+grep -l 'boss' *  显示所有包含boss（文件内容中）的文件名
+grep -n 'boss' a.log 在显示之前添加行号
+grep -i 'boss' a.log -i：不区分大小写
+grep -v 'boss' a.log -v：显示不匹配的行
+grep -q 'boss' a.log -q：找到匹配行但不显示，可以检查grep的退出状态（0表示匹配成功）
+grep -c 'boss' a.log -c：只统计匹配的函数（包括0）
+grep "#HOME" a.log 开展变量HOME的之再执行命令
+
+ps -ef | grep "^*user1" 搜索user1
+ps -e | grep -E 'aaa|bbb|ccc' 查找多个字符串匹配
+
+
+
+
+
+
+
+
+
